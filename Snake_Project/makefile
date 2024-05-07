@@ -1,0 +1,27 @@
+# Makefile
+
+# 編譯器和選項
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall -Wextra -g -I/opt/homebrew/Cellar/sfml/2.6.1/include
+LDFLAGS = -L/opt/homebrew/Cellar/sfml/2.6.1/lib
+
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+
+# 項目源文件
+SRCS = main.cpp Game.cpp Snake.cpp Fruit.cpp
+HDRS = Game.h Snake.h Fruit.h
+
+# 可執行文件
+TARGET = SnakeGame
+
+# 預設目標
+all: $(TARGET)
+
+# 建立可執行文件的規則
+$(TARGET): $(SRCS) $(HDRS)
+	$(CXX) $(CXXFLAGS) $(SRCS) -o $(TARGET) $(LDFLAGS) $(LIBS)
+
+# 清理產生的檔案
+clean:
+	rm -f $(TARGET)
+	rm -f *.o
