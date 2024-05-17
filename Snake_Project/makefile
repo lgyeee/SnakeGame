@@ -8,8 +8,8 @@ LDFLAGS = -L/opt/homebrew/Cellar/sfml/2.6.1/lib
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 # 項目源文件
-SRCS = main.cpp Game.cpp Snake.cpp Fruit.cpp
-HDRS = Game.h Snake.h Fruit.h
+SRCS = main.cpp Game.cpp Snake.cpp Fruit.cpp ScoreBoard.cpp
+HDRS = Game.h Snake.h Fruit.h ScoreBoard.h
 
 # 可執行文件
 TARGET = SnakeGame

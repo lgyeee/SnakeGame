@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Snake.h"
 #include "Fruit.h"
+#include "ScoreBoard.h"
 
 // 表示整個貪吃蛇遊戲的類
 class Game {
@@ -28,8 +29,13 @@ private:
     sf::RenderWindow window; // 渲染窗口
     Snake snake;             // 貪吃蛇
     Fruit fruit;             // 水果
+    ScoreBoard scoreboard;   //計分板
     sf::Texture tileTexture, entityTexture; // 紋理
     sf::Sprite tileSprite, entitySprite;    // 精靈
+    sf::Font font;
+    sf::Text scoreText;
+    sf::RectangleShape scoreBackground;
+    bool isPaused; // 暂停状态
 };
 
 #endif // GAME_H
