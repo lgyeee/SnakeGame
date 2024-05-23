@@ -14,17 +14,28 @@ Game::Game() :
     fruit(),
     scoreboard(),
     window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game"),
-    isPaused(false)
-     {
+    isPaused(false),
+    gameOver(false) 
+    {
     tileTexture.loadFromFile("white.png");
-    entityTexture.loadFromFile("head.png");
+    fruitTexture.loadFromFile("apple.png");
     tileSprite.setTexture(tileTexture);
-    entitySprite.setTexture(entityTexture);
-    if (!font.loadFromFile("font2.ttf")) {
+    fruitSprite.setTexture(fruitTexture);
+
+    snakeBodyTexture.loadFromFile("snakebody.png");
+    snakeBodySprite.setTexture(snakeBodyTexture);
+
+    snakeheadTexture.loadFromFile("snakehead.png");
+    snakeheadSprite.setTexture(snakeheadTexture);
+    if (!font2.loadFromFile("font2.ttf")) {
+        // 错误处理
+    }
+    if (!font.loadFromFile("font.ttf")) {
         // 错误处理
     }
 
-    scoreText.setFont(font);
+
+    scoreText.setFont(font2);
     scoreText.setCharacterSize(50);
     scoreText.setFillColor(sf::Color::Black);
     scoreText.setStyle(sf::Text::Bold);
@@ -50,7 +61,7 @@ void Game::run() {
 
         handleInput();
 
-        if (!isPaused && timer > delay) {
+        if (!isPaused && timer > delay && !gameOver) {
             timer = 0.0f;
             update();
         }
@@ -84,7 +95,7 @@ void Game::run() {
 //     }
 // }
 
-// 处理用户输入事件
+// 處理输入事件
 void Game::handleInput() {
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -92,21 +103,20 @@ void Game::handleInput() {
             window.close();
         }
         if (event.type == sf::Event::KeyPressed) {
-            // 打印所有检测到的按键事件
+            // debug: 印出所有KeyPressed
             std::cout << "Key pressed: " << event.key.code << std::endl;
 
-            // 检查是否按下了暂停键 P
+            // 檢查是否按下 P
             if (event.key.code == sf::Keyboard::P) {
-                isPaused = !isPaused; // 切换暂停状态
+                isPaused = !isPaused; // 切換暫停狀態
             }
-            // 检查是否按下了退出键 ESC
+            // 檢查是否按下 ESC
             if (event.key.code == sf::Keyboard::Escape) {
-                window.close();
+                window.close(); // 關掉視窗
             }
-            // 检查是否按下了 K 键
-            if (event.key.code == sf::Keyboard::K) {
-                // 处理 K 键按下事件，例如打印调试信息
-                std::cout << "K key pressed" << std::endl;
+            // 檢查是否按下 R
+            if (event.key.code == sf::Keyboard::R) {
+                reset();
             }
         }
     }
@@ -123,7 +133,21 @@ void Game::handleInput() {
 
 // 更新遊戲狀態
 void Game::update() {
+
     snake.move();
+
+    if(snake.isSelfCollision()){
+        snake.modifiedSnake();
+        int newSize = snake.getBody().size();
+        scoreboard.resetScore();
+        int addPoints = newSize * 10 - 10;
+        scoreboard.increaseScore(addPoints);
+    }
+
+    if(snake.isOutOfBounds()) {
+        gameOver = true;
+        return;
+    }
 
     // 如果蛇吃到水果，增加長度並重新生成水果
     if (snake.getHeadPosition() == sf::Vector2i(fruit.getX(), fruit.getY())) {
@@ -136,46 +160,52 @@ void Game::update() {
 void Game::render() {
     window.clear();
     // 绘制背景格子
-// for (int i = 0; i < GRID_WIDTH; ++i) {
-//     for (int j = 0; j < GRID_HEIGHT; ++j) {
-//         // 计算矩形的位置和大小
-//         sf::RectangleShape rect(sf::Vector2f(TILE_SIZE, TILE_SIZE));
-//         rect.setPosition(i * TILE_SIZE, j * TILE_SIZE);
+    for (int i = 0; i < GRID_WIDTH; ++i) {
+        for (int j = 0; j < GRID_HEIGHT; ++j) {
+            // 计算矩形的位置和大小
+            sf::RectangleShape rect(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+            rect.setPosition(i * TILE_SIZE, j * TILE_SIZE);
 
-//         // 交替绘制不同颜色的矩形以模拟网格线
-//         if ((i + j) % 2 == 0) {
-//             rect.setFillColor(sf::Color(200, 200, 200)); // 浅灰色
-//         } else {
-//             rect.setFillColor(sf::Color(255, 255, 255)); // 白色
-//         }
+            // 交替绘制不同颜色的矩形以模拟网格线
+            if ((i + j) % 2 == 0) {
+                rect.setFillColor(sf::Color(117, 191, 255)); // 淺藍色
+            } else {
+                rect.setFillColor(sf::Color(117, 185, 255)); // 藍色
+            }
 
-//         // 绘制矩形
-//         window.draw(rect);
-//     }
+            // 绘制矩形
+            window.draw(rect);
+        }
+    }
+
+//     // 绘制水平网格线
+// for (int i = 0; i <= GRID_HEIGHT; ++i) {
+//     sf::Vertex line[] = {
+//         sf::Vertex(sf::Vector2f(0, i * TILE_SIZE)),
+//         sf::Vertex(sf::Vector2f(GRID_WIDTH * TILE_SIZE, i * TILE_SIZE))
+//     };
+//     window.draw(line, 2, sf::Lines);
 // }
 
-    // 绘制水平网格线
-for (int i = 0; i <= GRID_HEIGHT; ++i) {
-    sf::Vertex line[] = {
-        sf::Vertex(sf::Vector2f(0, i * TILE_SIZE)),
-        sf::Vertex(sf::Vector2f(GRID_WIDTH * TILE_SIZE, i * TILE_SIZE))
-    };
-    window.draw(line, 2, sf::Lines);
-}
+// // 绘制垂直网格线
+// for (int i = 0; i <= GRID_WIDTH; ++i) {
+//     sf::Vertex line[] = {
+//         sf::Vertex(sf::Vector2f(i * TILE_SIZE, 0)),
+//         sf::Vertex(sf::Vector2f(i * TILE_SIZE, GRID_HEIGHT * TILE_SIZE))
+//     };
+//     window.draw(line, 2, sf::Lines);
+// }
 
-// 绘制垂直网格线
-for (int i = 0; i <= GRID_WIDTH; ++i) {
-    sf::Vertex line[] = {
-        sf::Vertex(sf::Vector2f(i * TILE_SIZE, 0)),
-        sf::Vertex(sf::Vector2f(i * TILE_SIZE, GRID_HEIGHT * TILE_SIZE))
-    };
-    window.draw(line, 2, sf::Lines);
-}
+    // 繪製蛇頭
+    sf::Vector2i headPos = snake.getHeadPosition();
+    snakeheadSprite.setPosition(headPos.x * TILE_SIZE, headPos.y * TILE_SIZE);
+    window.draw(snakeheadSprite);
 
-    // 繪製蛇
-    for (const auto& segment : snake.getBody()) {
-        entitySprite.setPosition(segment.x * TILE_SIZE, segment.y * TILE_SIZE);
-        window.draw(entitySprite);
+    // 繪製蛇身
+    const auto& body = snake.getBody();
+    for (size_t i = 1; i < body.size(); ++i) {
+        snakeBodySprite.setPosition(body[i].x * TILE_SIZE, body[i].y * TILE_SIZE);
+        window.draw(snakeBodySprite);
     }
 
     for (int i = GRID_WIDTH; i < WINDOW_WIDTH ; i = i + TILE_SIZE) {
@@ -186,30 +216,51 @@ for (int i = 0; i <= GRID_WIDTH; ++i) {
     }
 
     // 繪製水果
-    entitySprite.setPosition(fruit.getX() * TILE_SIZE, fruit.getY() * TILE_SIZE);
-    window.draw(entitySprite);
+    fruitSprite.setPosition(fruit.getX() * TILE_SIZE, fruit.getY() * TILE_SIZE);
+    window.draw(fruitSprite);
 
-     // 如果游戏暂停，显示暂停信息
+     // 如果遊戲暫停，顯示paused
     if (isPaused) {
         sf::Text pausedText;
         pausedText.setFont(font);
-        pausedText.setCharacterSize(48);
-        pausedText.setFillColor(sf::Color::Red);
+        pausedText.setCharacterSize(30);
+        pausedText.setFillColor(sf::Color::Yellow);
         pausedText.setString("Paused");
-        pausedText.setPosition(WINDOW_WIDTH / 2 - pausedText.getGlobalBounds().width / 2,
-                               WINDOW_HEIGHT / 2 - pausedText.getGlobalBounds().height / 2);
+        pausedText.setPosition(WINDOW_WIDTH - pausedText.getGlobalBounds().width - 50,
+                               WINDOW_HEIGHT/2  - pausedText.getGlobalBounds().height -50);
         window.draw(pausedText);
     }
 
-     // 绘制分数背景和文本
+    //繪製背景分數
     scoreText.setString("Score: " + std::to_string(scoreboard.getScore()));
     scoreText.setPosition(window.getSize().x - 150, window.getSize().y - 100); // 调整文本位置，确保不会与背景重叠
-    scoreBackground.setPosition(window.getSize().x - 150, window.getSize().y - 100); 
+    scoreBackground.setPosition(window.getSize().x - 150, window.getSize().y ); 
     scoreText.setFillColor(sf::Color(100, 40, 30, 255));
     scoreBackground.setFillColor(sf::Color(255, 255, 255, 255));
     window.draw(scoreBackground);
     window.draw(scoreText);
 
+    // 如果遊戲結束，顯示Game Over
+    if (gameOver) {
+        sf::Text gameOverText;
+        gameOverText.setFont(font);
+        gameOverText.setCharacterSize(30);
+        gameOverText.setFillColor(sf::Color::Red);
+        gameOverText.setString("Game Over");
+        gameOverText.setPosition(WINDOW_WIDTH/2 - gameOverText.getGlobalBounds().width/2,
+                                 WINDOW_HEIGHT/2 - gameOverText.getGlobalBounds().height/2);
+        window.draw(gameOverText);
+    }
+
     // 顯示已繪製的畫面
     window.display();
+}
+
+// 重置遊戲
+void Game::reset() {
+    snake = Snake();
+    fruit.respawn();
+    scoreboard.resetScore();
+    isPaused = false;
+    gameOver = false;
 }

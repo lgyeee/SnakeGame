@@ -30,12 +30,14 @@ private:
     Snake snake;             // 貪吃蛇
     Fruit fruit;             // 水果
     ScoreBoard scoreboard;   //計分板
-    sf::Texture tileTexture, entityTexture; // 紋理
-    sf::Sprite tileSprite, entitySprite;    // 精靈
-    sf::Font font;
+    sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture; // 紋理
+    sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite;    // 精靈
+    sf::Font font, font2;
     sf::Text scoreText;
     sf::RectangleShape scoreBackground;
-    bool isPaused; // 暂停状态
+    bool isPaused; // 暫停狀態
+    void reset(); // 重置遊戲
+    bool gameOver; // 遊戲結束狀態
 };
 
 #endif // GAME_H

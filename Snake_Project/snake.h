@@ -34,9 +34,15 @@ public:
     // 獲取蛇頭的位置
     sf::Vector2i getHeadPosition() const;
 
+    bool isOutOfBounds() const; // 新增的方法：檢查蛇頭是否超出邊界
+    bool isSelfCollision() const; // 新增的方法：檢查蛇是否撞到自己
+    void modifiedSnake();
+
 private:
     std::vector<sf::Vector2i> body; // 蛇的所有節點
     Direction direction;            // 蛇的移動方向
+    Direction newDirection;
+    
 };
 
 #endif // SNAKE_H

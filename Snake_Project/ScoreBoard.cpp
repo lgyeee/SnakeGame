@@ -1,6 +1,6 @@
 #include "ScoreBoard.h"
 
-ScoreBoard::ScoreBoard():score(0){}
+ScoreBoard::ScoreBoard():score(10){}
     
 int ScoreBoard::getScore(){
     return score;
@@ -12,5 +12,5 @@ int ScoreBoard::decreaseScore(int value){
     score -= value;
 }
 void ScoreBoard::resetScore(){
-    score = 0;
+    score = 10;
 }
