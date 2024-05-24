@@ -1,7 +1,7 @@
 // main.cpp
 #include "Snake.h"
 #include "Game.h"
-#include "fruit.h"
+#include "Fruit.h"
 
 
 int main() {

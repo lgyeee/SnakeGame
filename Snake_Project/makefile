@@ -1,27 +1,33 @@
 # Makefile
 
-# 編譯器和選項
+# Compiler and options
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -g -I/opt/homebrew/Cellar/sfml/2.6.1/include
-LDFLAGS = -L/opt/homebrew/Cellar/sfml/2.6.1/lib
+CXXFLAGS = -std=c++11 -Wall -Wextra -g
+#LDFLAGS = -L/home/weiwei/Snake_Project/SFML-2.6.1/lib
 
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-# 項目源文件
+# Project source files
 SRCS = main.cpp Game.cpp Snake.cpp Fruit.cpp ScoreBoard.cpp
-HDRS = Game.h Snake.h Fruit.h ScoreBoard.h
 
-# 可執行文件
+# Object files
+OBJS = $(SRCS:.cpp=.o)
+
+# Executable file
 TARGET = SnakeGame
 
-# 預設目標
+# Default target
 all: $(TARGET)
 
-# 建立可執行文件的規則
-$(TARGET): $(SRCS) $(HDRS)
-	$(CXX) $(CXXFLAGS) $(SRCS) -o $(TARGET) $(LDFLAGS) $(LIBS)
+# Rule to build the executable
+$(TARGET): $(OBJS)
+	$(CXX) $(LDFLAGS) -o $(TARGET) $(OBJS) $(LIBS)
 
-# 清理產生的檔案
+# Rule to build object files from source files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean up generated files
 clean:
-	rm -f $(TARGET)
-	rm -f *.o
+	rm -f $(OBJS) $(TARGET)
+
