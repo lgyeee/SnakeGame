@@ -39,18 +39,14 @@ Game::Game() :
          std::cerr << "Error: Failed to load font3.ttf" << std::endl;
          return;
     }
-    
-
-
-    scoreText.setFont(font2);
-    scoreText.setCharacterSize(50);
-    scoreText.setFillColor(sf::Color::Black);
-    scoreText.setStyle(sf::Text::Bold);
-
-    scoreBackground.setSize(sf::Vector2f(200, 50));
-    scoreBackground.setFillColor(sf::Color(0, 0, 0, 150));
-    scoreBackground.setPosition(5, 5);
-
+    if (!font4.loadFromFile("Font/font4.ttf")) {
+         std::cerr << "Error: Failed to load font4.ttf" << std::endl;
+         return;
+    }
+    if (!font5.loadFromFile("Font/font5.ttf")) {
+         std::cerr << "Error: Failed to load font5.ttf" << std::endl;
+         return;
+    }
 }
 
 
@@ -229,22 +225,23 @@ void Game::render() {
      // 如果遊戲暫停，顯示paused
     if (isPaused) {
         sf::Text pausedText;
-        pausedText.setFont(font);
+        pausedText.setFont(font3);
         pausedText.setCharacterSize(30);
-        pausedText.setFillColor(sf::Color::Yellow);
+        pausedText.setFillColor(sf::Color(137, 155, 156));
+        pausedText.setStyle(sf::Text::Bold);
         pausedText.setString("Paused");
-        pausedText.setPosition(WINDOW_WIDTH - pausedText.getGlobalBounds().width - 50,
+        pausedText.setPosition(WINDOW_WIDTH - pausedText.getGlobalBounds().width - 70,
                                WINDOW_HEIGHT/2  - pausedText.getGlobalBounds().height -50);
         window.draw(pausedText);
     }
 
     //繪製背景分數
-    scoreText.setString("Score: " + std::to_string(scoreboard.getScore()));
-    scoreText.setPosition(window.getSize().x - 150, window.getSize().y - 100); // 调整文本位置，确保不会与背景重叠
-    scoreBackground.setPosition(window.getSize().x - 150, window.getSize().y ); 
-    scoreText.setFillColor(sf::Color(100, 40, 30, 255));
-    scoreBackground.setFillColor(sf::Color(255, 255, 255, 255));
-    window.draw(scoreBackground);
+    scoreText.setFont(font5);
+    scoreText.setCharacterSize(35);
+    //scoreText.setStyle(sf::Text::Bold);
+    scoreText.setString("Score:" + std::to_string(scoreboard.getScore()));
+    scoreText.setPosition(window.getSize().x - 190, window.getSize().y - 100); // 调整文本位置，确保不会与背景重叠
+    scoreText.setFillColor(sf::Color(153, 204, 204, 255));
     window.draw(scoreText);
 
     // 如果遊戲結束，顯示Game Over
@@ -255,7 +252,7 @@ void Game::render() {
         gameOverText.setFillColor(sf::Color::Blue);
         gameOverText.setOutlineThickness(0.1);
         gameOverText.setString("Game Over");
-        gameOverText.setPosition(WINDOW_WIDTH/2 - gameOverText.getGlobalBounds().width/2,
+        gameOverText.setPosition(WINDOW_WIDTH/2 - gameOverText.getGlobalBounds().width/2 - 10,
                                  WINDOW_HEIGHT/2 - gameOverText.getGlobalBounds().height/2 - 30);
         window.draw(gameOverText);
     }
