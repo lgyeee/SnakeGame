@@ -3,8 +3,8 @@
 #include <iostream>
 
 const int GRID_WIDTH = 30; // 網格寬度
-const int GRID_HEIGHT = 20; // 網格高度
-const int TILE_SIZE = 16; // 單位格子尺寸
+const int GRID_HEIGHT = 30; // 網格高度
+const int TILE_SIZE = 20; // 單位格子尺寸
 const int WINDOW_WIDTH = TILE_SIZE * GRID_WIDTH + 200; // 窗口寬度
 const int WINDOW_HEIGHT = TILE_SIZE * GRID_HEIGHT; // 窗口高度
 
@@ -18,7 +18,7 @@ Game::Game() :
     gameOver(false) 
     {
     tileTexture.loadFromFile("white.png");
-    fruitTexture.loadFromFile("apple.png");
+    fruitTexture.loadFromFile("watermelon.png");
     tileSprite.setTexture(tileTexture);
     fruitSprite.setTexture(fruitTexture);
 
@@ -159,21 +159,21 @@ void Game::update() {
 
 void Game::render() {
     window.clear();
-    // 绘制背景格子
+    // 繪製背景格子
     for (int i = 0; i < GRID_WIDTH; ++i) {
         for (int j = 0; j < GRID_HEIGHT; ++j) {
-            // 计算矩形的位置和大小
+            // 計算矩陣的大小
             sf::RectangleShape rect(sf::Vector2f(TILE_SIZE, TILE_SIZE));
             rect.setPosition(i * TILE_SIZE, j * TILE_SIZE);
 
-            // 交替绘制不同颜色的矩形以模拟网格线
+            // 交替繪製模擬格線
             if ((i + j) % 2 == 0) {
                 rect.setFillColor(sf::Color(117, 191, 255)); // 淺藍色
             } else {
                 rect.setFillColor(sf::Color(117, 185, 255)); // 藍色
             }
 
-            // 绘制矩形
+            // 繪製
             window.draw(rect);
         }
     }

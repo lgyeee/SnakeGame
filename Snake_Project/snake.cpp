@@ -56,7 +56,7 @@ void Snake::modifiedSnake(){
 
 // 檢查蛇頭是否超出邊界
 bool Snake::isOutOfBounds() const {
-    return body[0].x < 0 || body[0].x >= 30 || body[0].y < 0 || body[0].y >= 20;
+    return body[0].x < 0 || body[0].x >= 30 || body[0].y < 0 || body[0].y >= 30;
 }
 // 增加蛇的長度
 void Snake::grow() {
