@@ -27,12 +27,19 @@ Game::Game() :
 
     snakeheadTexture.loadFromFile("snakehead.png");
     snakeheadSprite.setTexture(snakeheadTexture);
-    if (!font2.loadFromFile("font2.ttf")) {
-        // 错误处理
+    if (!font.loadFromFile("Font/font.ttf")) {
+        std::cerr << "Error: Failed to load font.ttf" << std::endl;
+        return;
     }
-    if (!font.loadFromFile("font.ttf")) {
-        // 错误处理
+    if (!font2.loadFromFile("Font/font2.ttf")) {
+         std::cerr << "Error: Failed to load font2.ttf" << std::endl;
+         return;
     }
+    if (!font3.loadFromFile("Font/font3.ttf")) {
+         std::cerr << "Error: Failed to load font3.ttf" << std::endl;
+         return;
+    }
+    
 
 
     scoreText.setFont(font2);
@@ -243,12 +250,13 @@ void Game::render() {
     // 如果遊戲結束，顯示Game Over
     if (gameOver) {
         sf::Text gameOverText;
-        gameOverText.setFont(font);
-        gameOverText.setCharacterSize(30);
-        gameOverText.setFillColor(sf::Color::Red);
+        gameOverText.setFont(font3);
+        gameOverText.setCharacterSize(100);
+        gameOverText.setFillColor(sf::Color::Blue);
+        gameOverText.setOutlineThickness(0.1);
         gameOverText.setString("Game Over");
         gameOverText.setPosition(WINDOW_WIDTH/2 - gameOverText.getGlobalBounds().width/2,
-                                 WINDOW_HEIGHT/2 - gameOverText.getGlobalBounds().height/2);
+                                 WINDOW_HEIGHT/2 - gameOverText.getGlobalBounds().height/2 - 30);
         window.draw(gameOverText);
     }
 
