@@ -1,4 +1,0 @@
-change TILE_SIZE to 20
-change GRID_HEIGHT to 30
-change snakebody.png
-add watermelon.png

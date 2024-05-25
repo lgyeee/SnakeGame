@@ -27,6 +27,10 @@ Game::Game() :
 
     snakeheadTexture.loadFromFile("snakehead.png");
     snakeheadSprite.setTexture(snakeheadTexture);
+
+    gameOverTextTexture.loadFromFile("gameover.png");
+    gameOverTextSprite.setTexture(gameOverTextTexture);
+
     if (!font.loadFromFile("Font/font.ttf")) {
         std::cerr << "Error: Failed to load font.ttf" << std::endl;
         return;
@@ -181,7 +185,7 @@ void Game::render() {
         }
     }
 
-//     // 绘制水平网格线
+//     // 繪製水平格線
 // for (int i = 0; i <= GRID_HEIGHT; ++i) {
 //     sf::Vertex line[] = {
 //         sf::Vertex(sf::Vector2f(0, i * TILE_SIZE)),
@@ -190,7 +194,7 @@ void Game::render() {
 //     window.draw(line, 2, sf::Lines);
 // }
 
-// // 绘制垂直网格线
+// // 繪製垂直格線
 // for (int i = 0; i <= GRID_WIDTH; ++i) {
 //     sf::Vertex line[] = {
 //         sf::Vertex(sf::Vector2f(i * TILE_SIZE, 0)),
@@ -246,15 +250,18 @@ void Game::render() {
 
     // 如果遊戲結束，顯示Game Over
     if (gameOver) {
-        sf::Text gameOverText;
-        gameOverText.setFont(font3);
-        gameOverText.setCharacterSize(100);
-        gameOverText.setFillColor(sf::Color::Blue);
-        gameOverText.setOutlineThickness(0.1);
-        gameOverText.setString("Game Over");
-        gameOverText.setPosition(WINDOW_WIDTH/2 - gameOverText.getGlobalBounds().width/2 - 10,
-                                 WINDOW_HEIGHT/2 - gameOverText.getGlobalBounds().height/2 - 30);
-        window.draw(gameOverText);
+        // sf::Text gameOverText;
+        // gameOverText.setFont(font3);
+        // gameOverText.setCharacterSize(100);
+        // gameOverText.setFillColor(sf::Color::Blue);
+        // gameOverText.setOutlineThickness(0.1);
+        // gameOverText.setString("Game Over");
+        // gameOverText.setPosition(WINDOW_WIDTH/2 - gameOverText.getGlobalBounds().width/2 - 10,
+        //                          WINDOW_HEIGHT/2 - gameOverText.getGlobalBounds().height/2 - 30);
+        // window.draw(gameOverText);
+        gameOverTextSprite.setPosition(WINDOW_WIDTH/2 - gameOverTextSprite.getGlobalBounds().width/2 - 90,
+                                      WINDOW_HEIGHT/2 - gameOverTextSprite.getGlobalBounds().height/2 - 30);
+        window.draw(gameOverTextSprite);
     }
 
     // 顯示已繪製的畫面
