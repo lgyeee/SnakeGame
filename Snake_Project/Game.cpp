@@ -17,18 +17,18 @@ Game::Game() :
     isPaused(false),
     gameOver(false) 
     {
-    tileTexture.loadFromFile("white.png");
-    fruitTexture.loadFromFile("watermelon.png");
+    tileTexture.loadFromFile("Picture/white.png");
+    fruitTexture.loadFromFile("Picture/toast.png");
     tileSprite.setTexture(tileTexture);
     fruitSprite.setTexture(fruitTexture);
 
-    snakeBodyTexture.loadFromFile("snakebody.png");
+    snakeBodyTexture.loadFromFile("Picture/snakebody.png");
     snakeBodySprite.setTexture(snakeBodyTexture);
 
-    snakeheadTexture.loadFromFile("snakehead.png");
+    snakeheadTexture.loadFromFile("Picture/snakehead.png");
     snakeheadSprite.setTexture(snakeheadTexture);
 
-    gameOverTextTexture.loadFromFile("gameover.png");
+    gameOverTextTexture.loadFromFile("Picture/gameover.png");
     gameOverTextSprite.setTexture(gameOverTextTexture);
 
     if (!font.loadFromFile("Font/font.ttf")) {
