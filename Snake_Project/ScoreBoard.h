@@ -5,12 +5,16 @@
 
 class ScoreBoard{
 public:
-    ScoreBoard();
+    ScoreBoard();//建構函數
 
-    int getScore();
-    int increaseScore(int value);
-    int decreaseScore(int value);
-    void resetScore();
+    int getScore();//獲取分數版的值
+
+    int increaseScore(int value); //增加分數
+
+    int decreaseScore(int value);//減少分數
+
+    void resetScore();//重置分數為10
+    
 private:
-    int score;
+    int score; //分數
 };

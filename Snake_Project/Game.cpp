@@ -18,8 +18,9 @@ Game::Game() :
     gameOver(false) 
     {
     tileTexture.loadFromFile("Picture/white.png");
-    fruitTexture.loadFromFile("Picture/toast.png");
     tileSprite.setTexture(tileTexture);
+    
+    fruitTexture.loadFromFile("Picture/toast.png");
     fruitSprite.setTexture(fruitTexture);
 
     snakeBodyTexture.loadFromFile("Picture/snakebody.png");
@@ -76,32 +77,6 @@ void Game::run() {
         render();
     }
 }
-
-// 處理用戶輸入事件
-// void Game::handleInput() {
-//     sf::Event event;
-//     while (window.pollEvent(event)) {
-//         if (event.type == sf::Event::Closed) {
-//             window.close();
-//         }
-//         // if (event.type == sf::Event::KeyPressed){
-//         //     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
-            
-//         // }
-//         // 更改蛇的方向
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) snake.changeDirection(Left);
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) snake.changeDirection(Right);
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) snake.changeDirection(Up);
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) snake.changeDirection(Down);
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-//             isPaused = !isPaused; // 切换暂停状态
-//         }
-//         // if (event.key.code == sf::Keyboard::P) {
-//         //         isPaused = !isPaused; // 切换暂停状态
-//         //     }
-//     }
-// }
-
 // 處理输入事件
 void Game::handleInput() {
     sf::Event event;
@@ -127,7 +102,6 @@ void Game::handleInput() {
             }
         }
     }
-
     // 更改蛇的方向
     if (!isPaused) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) snake.changeDirection(Left);
@@ -184,25 +158,6 @@ void Game::render() {
             window.draw(rect);
         }
     }
-
-//     // 繪製水平格線
-// for (int i = 0; i <= GRID_HEIGHT; ++i) {
-//     sf::Vertex line[] = {
-//         sf::Vertex(sf::Vector2f(0, i * TILE_SIZE)),
-//         sf::Vertex(sf::Vector2f(GRID_WIDTH * TILE_SIZE, i * TILE_SIZE))
-//     };
-//     window.draw(line, 2, sf::Lines);
-// }
-
-// // 繪製垂直格線
-// for (int i = 0; i <= GRID_WIDTH; ++i) {
-//     sf::Vertex line[] = {
-//         sf::Vertex(sf::Vector2f(i * TILE_SIZE, 0)),
-//         sf::Vertex(sf::Vector2f(i * TILE_SIZE, GRID_HEIGHT * TILE_SIZE))
-//     };
-//     window.draw(line, 2, sf::Lines);
-// }
-
     // 繪製蛇頭
     sf::Vector2i headPos = snake.getHeadPosition();
     snakeheadSprite.setPosition(headPos.x * TILE_SIZE, headPos.y * TILE_SIZE);
@@ -250,15 +205,6 @@ void Game::render() {
 
     // 如果遊戲結束，顯示Game Over
     if (gameOver) {
-        // sf::Text gameOverText;
-        // gameOverText.setFont(font3);
-        // gameOverText.setCharacterSize(100);
-        // gameOverText.setFillColor(sf::Color::Blue);
-        // gameOverText.setOutlineThickness(0.1);
-        // gameOverText.setString("Game Over");
-        // gameOverText.setPosition(WINDOW_WIDTH/2 - gameOverText.getGlobalBounds().width/2 - 10,
-        //                          WINDOW_HEIGHT/2 - gameOverText.getGlobalBounds().height/2 - 30);
-        // window.draw(gameOverText);
         gameOverTextSprite.setPosition(WINDOW_WIDTH/2 - gameOverTextSprite.getGlobalBounds().width/2 - 90,
                                       WINDOW_HEIGHT/2 - gameOverTextSprite.getGlobalBounds().height/2 - 30);
         window.draw(gameOverTextSprite);

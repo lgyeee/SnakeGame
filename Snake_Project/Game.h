@@ -31,7 +31,7 @@ private:
     Fruit fruit;             // 水果
     ScoreBoard scoreboard;   //計分板
     sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; // 紋理
-    sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    // 精靈
+    sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    // 物件精靈
     sf::Font font, font2, font3, font4, font5;
     sf::Text scoreText;
     sf::RectangleShape scoreBackground;

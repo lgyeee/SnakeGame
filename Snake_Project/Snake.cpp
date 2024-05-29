@@ -6,11 +6,6 @@ Snake::Snake() : direction(Down), newDirection(Down) {
     body.emplace_back(15, 10); // 初始位置
 }
 
-// 改變蛇的移動方向
-// void Snake::changeDirection(Direction dir) {
-//     direction = dir;
-// }
-
 void Snake::changeDirection(Direction dir) {
     // 確保不會直接掉頭
     if ((direction == Up && dir != Down) ||
@@ -73,6 +68,7 @@ sf::Vector2i Snake::getHeadPosition() const {
     return body[0];
 }
 
+//確認會不會自撞
 bool Snake::isSelfCollision() const {
     for (size_t i = 1; i < body.size(); ++i) {
         if (body[0] == body[i]) {

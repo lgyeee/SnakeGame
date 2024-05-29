@@ -10,5 +10,5 @@ image = Image.new("RGB", (width, height), "white")
 # 保存图像
 image.save("white.png")
 
-print("白色底长方形图像已生成。")
+print("白色長方底圖片已經生成。")
 
