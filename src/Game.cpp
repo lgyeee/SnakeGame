@@ -1,5 +1,5 @@
 // Game.cpp
-#include "Game.h"
+#include "../include/Game.h"
 #include <iostream>
 
 const int GRID_WIDTH = 30; // 網格寬度
@@ -17,38 +17,38 @@ Game::Game() :
     isPaused(false),
     gameOver(false) 
     {
-    tileTexture.loadFromFile("Picture/white.png");
+    tileTexture.loadFromFile("assets/textures/white.png");
     tileSprite.setTexture(tileTexture);
     
-    fruitTexture.loadFromFile("Picture/toast.png");
+    fruitTexture.loadFromFile("assets/textures/toast.png");
     fruitSprite.setTexture(fruitTexture);
 
-    snakeBodyTexture.loadFromFile("Picture/snakebody.png");
+    snakeBodyTexture.loadFromFile("assets/textures/snakebody.png");
     snakeBodySprite.setTexture(snakeBodyTexture);
 
-    snakeheadTexture.loadFromFile("Picture/snakehead.png");
+    snakeheadTexture.loadFromFile("assets/textures/snakehead.png");
     snakeheadSprite.setTexture(snakeheadTexture);
 
-    gameOverTextTexture.loadFromFile("Picture/gameover.png");
+    gameOverTextTexture.loadFromFile("assets/textures/gameover.png");
     gameOverTextSprite.setTexture(gameOverTextTexture);
 
-    if (!font.loadFromFile("Font/font.ttf")) {
+    if (!font.loadFromFile("assets/fonts/font.ttf")) {
         std::cerr << "Error: Failed to load font.ttf" << std::endl;
         return;
     }
-    if (!font2.loadFromFile("Font/font2.ttf")) {
+    if (!font2.loadFromFile("assets/fonts/font2.ttf")) {
          std::cerr << "Error: Failed to load font2.ttf" << std::endl;
          return;
     }
-    if (!font3.loadFromFile("Font/font3.ttf")) {
+    if (!font3.loadFromFile("assets/fonts/font3.ttf")) {
          std::cerr << "Error: Failed to load font3.ttf" << std::endl;
          return;
     }
-    if (!font4.loadFromFile("Font/font4.ttf")) {
+    if (!font4.loadFromFile("assets/fonts/font4.ttf")) {
          std::cerr << "Error: Failed to load font4.ttf" << std::endl;
          return;
     }
-    if (!font5.loadFromFile("Font/font5.ttf")) {
+    if (!font5.loadFromFile("assets/fonts/font5.ttf")) {
          std::cerr << "Error: Failed to load font5.ttf" << std::endl;
          return;
     }

@@ -1,4 +1,4 @@
-#include "ScoreBoard.h"
+#include "../include/ScoreBoard.h"
 
 //建構函數：初始化score值為10
 ScoreBoard::ScoreBoard():score(10){}
