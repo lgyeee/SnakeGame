@@ -30,58 +30,59 @@ A classic Snake game built using SFML (Simple and Fast Multimedia Library). This
 
 1. Clone the repository:
 
-   \`\`\`bash
+   ```bash
    git clone https://github.com/yourusername/snake-game.git
    cd snake-game
-   \`\`\`
+   ```
 
 2. Install SFML:
 
    On macOS:
-   \`\`\`bash
+   ```bash
    brew install sfml
-   \`\`\`
+   ```
 
    On Ubuntu:
-   \`\`\`bash
+   ```bash
    sudo apt-get install libsfml-dev
-   \`\`\`
+   ```
 
 3. Build the project using Makefile:
 
-   \`\`\`bash
+   ```bash
    make
-   \`\`\`
+   ```
 
 4. Run the game:
 
-   \`\`\`bash
+   ```bash
    ./build/SnakeGame
-   \`\`\`
+   ```
 
 ## Usage
 
 ### Controls
 
 - **Arrow Keys**: Control the direction of the snake.
-  - \`Up Arrow\`: Move the snake up.
-  - \`Down Arrow\`: Move the snake down.
-  - \`Left Arrow\`: Move the snake left.
-  - \`Right Arrow\`: Move the snake right.
+  - `Up Arrow`: Move the snake up.
+  - `Down Arrow`: Move the snake down.
+  - `Left Arrow`: Move the snake left.
+  - `Right Arrow`: Move the snake right.
 - **P Key**: Pause and resume the game.
 - **Escape Key**: Exit the game.
-- **K Key**: Print a debug message (for testing purposes).
 
 ### Game Interactions
 
 - **Collect Fruits**: Increase your score and snake length by collecting fruits.
-- **Avoid Collisions**: Prevent the snake from colliding with itself or the boundaries to avoid game over.
+- **Avoid Collisions**: 
+    - Prevent the snake from colliding with itself 
+    - Prevent the snake from hitting boundaries to avoid game over.
 - **Pause/Resume**: You can pause the game at any time by pressing the \`P\` key and resume by pressing it again.
 - **Exit Game**: Press the \`Escape\` key to exit the game at any time.
 
 ## Project Structure
 
-\`\`\`
+```
 .
 ├── Makefile           # Build configuration
 ├── README.md          # Project documentation
@@ -107,7 +108,7 @@ A classic Snake game built using SFML (Simple and Fast Multimedia Library). This
 │       └── fruit.png
 └── build              # Compiled binary and object files
     └── SnakeGame      # Executable file
-\`\`\`
+```
 
 ## Contributing
 
@@ -119,9 +120,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-If you have any questions or suggestions, feel free to reach out to me at [your.email@example.com].
+If you have any questions or suggestions, feel free to reach out to me at  [guanyilin0713@gmail.com].
 
 ---
 
 Enjoy playing the Snake Game!
-
