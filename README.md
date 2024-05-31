@@ -31,8 +31,8 @@ A classic Snake game built using SFML (Simple and Fast Multimedia Library). This
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/snake-game.git
-   cd snake-game
+   git clone https://github.com/lgyeee/SnakeGame.git
+   cd SnakeGame
    ```
 
 2. Install SFML:
