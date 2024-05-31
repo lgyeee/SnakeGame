@@ -1,5 +1,5 @@
 // Snake.cpp
-#include "Snake.h"
+#include "../include/Snake.h"
 
 // 建構函數：初始化蛇的初始位置與方向
 Snake::Snake() : direction(Down), newDirection(Down) {
