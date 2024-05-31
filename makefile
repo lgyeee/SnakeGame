@@ -17,16 +17,13 @@ TARGET = build/SnakeGame
 # 預設目標
 all: $(TARGET)
 
-# 創建目標目錄
-$(TARGET_DIR):
+# 創建目標目錄並複製資源文件
+prepare-build-dir:
 	mkdir -p build
-
-# 複製資源文件到構建目錄
-copy-resources: $(TARGET_DIR)
 	cp -r assets build/
 
 # 創建可執行文件的規則
-$(TARGET): $(SRCS) $(HDRS) | copy-resources
+$(TARGET): $(SRCS) $(HDRS) | prepare-build-dir
 	$(CXX) $(CXXFLAGS) $(SRCS) -o $(TARGET) $(LDFLAGS) $(LIBS)
 
 # 運行程序
