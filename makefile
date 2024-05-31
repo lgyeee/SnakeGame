@@ -15,18 +15,24 @@ HDRS = include/Game.h include/Snake.h include/Fruit.h include/ScoreBoard.h
 TARGET = build/SnakeGame
 
 # 預設目標
-all: $(TARGET) copy-resources
+all: $(TARGET)
 
-# 複製資源文件到建構目錄
-copy-resources: 
-	cp -r assets build/assets
+# 創建目標目錄
+$(TARGET_DIR):
+	mkdir -p build
 
-# 建立可執行文件的規則
-$(TARGET): $(SRCS) $(HDRS)
+# 複製資源文件到構建目錄
+copy-resources: $(TARGET_DIR)
+	cp -r assets build/
+
+# 創建可執行文件的規則
+$(TARGET): $(SRCS) $(HDRS) | copy-resources
 	$(CXX) $(CXXFLAGS) $(SRCS) -o $(TARGET) $(LDFLAGS) $(LIBS)
 
-# 清理產生的檔案
+# 運行程序
+run: $(TARGET)
+	cd build && ./SnakeGame
+
+# 清理生成的文件
 clean:
-	rm -f $(TARGET)
-	rm -rf copy-resources
-	rm -f *.o
+	rm -rf build
