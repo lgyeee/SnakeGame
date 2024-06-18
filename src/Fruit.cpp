@@ -5,7 +5,7 @@
 
 // 建構函數：初始化水果並隨機生成位置
 Fruit::Fruit() {
-    std::srand(static_cast<unsigned>(std::time(0)));
+    std::srand(static_cast<unsigned>(std::time(0)) + 1);
     respawn();
 }
 

@@ -58,6 +58,13 @@ void Snake::grow() {
     body.push_back(body.back());
 }
 
+// 減少蛇的長度
+void Snake::shrink() {
+    if (body.size() > 1) {
+        body.pop_back();
+    }
+}
+
 // 獲取蛇的所有節點
 const std::vector<sf::Vector2i>& Snake::getBody() const {
     return body;

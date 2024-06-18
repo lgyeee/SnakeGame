@@ -28,6 +28,9 @@ public:
     // 增加蛇的長度
     void grow();
 
+    // 減少蛇的長度
+    void shrink();
+
     // 獲取蛇的所有節點
     const std::vector<sf::Vector2i>& getBody() const;
 

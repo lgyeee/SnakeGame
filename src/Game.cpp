@@ -12,6 +12,7 @@ const int WINDOW_HEIGHT = TILE_SIZE * GRID_HEIGHT; // 窗口高度
 Game::Game() :
     snake(),
     fruit(),
+    mine(),
     scoreboard(),
     window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game"),
     isPaused(false),
@@ -22,6 +23,9 @@ Game::Game() :
     
     fruitTexture.loadFromFile("assets/textures/toast.png");
     fruitSprite.setTexture(fruitTexture);
+
+    mineTexture.loadFromFile("assets/textures/landmine.png");
+    mineSprite.setTexture(mineTexture);
 
     snakeBodyTexture.loadFromFile("assets/textures/snakebody.png");
     snakeBodySprite.setTexture(snakeBodyTexture);
@@ -136,6 +140,13 @@ void Game::update() {
         fruit.respawn();
         scoreboard.increaseScore(10);
     }
+    
+    // 如果蛇吃到地雷，減少長度並重新生成地雷
+    if (snake.getHeadPosition() == sf::Vector2i(mine.getX(), mine.getY())) {
+        snake.shrink();
+        mine.respawn();
+        scoreboard.increaseScore(-10);
+    }
 }
 
 void Game::render() {
@@ -180,6 +191,10 @@ void Game::render() {
     // 繪製水果
     fruitSprite.setPosition(fruit.getX() * TILE_SIZE, fruit.getY() * TILE_SIZE);
     window.draw(fruitSprite);
+    
+    // 繪製地雷
+    mineSprite.setPosition(mine.getX() * TILE_SIZE, mine.getY() * TILE_SIZE);
+    window.draw(mineSprite);
 
      // 如果遊戲暫停，顯示paused
     if (isPaused) {
@@ -218,6 +233,7 @@ void Game::render() {
 void Game::reset() {
     snake = Snake();
     fruit.respawn();
+    mine.respawn();
     scoreboard.resetScore();
     isPaused = false;
     gameOver = false;
