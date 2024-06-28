@@ -1,5 +1,6 @@
 // Game.cpp
 #include "../include/Game.h"
+#include <cstdlib>
 #include <iostream>
 
 const int GRID_WIDTH = 30; // 網格寬度
@@ -7,6 +8,7 @@ const int GRID_HEIGHT = 30; // 網格高度
 const int TILE_SIZE = 20; // 單位格子尺寸
 const int WINDOW_WIDTH = TILE_SIZE * GRID_WIDTH + 200; // 窗口寬度
 const int WINDOW_HEIGHT = TILE_SIZE * GRID_HEIGHT; // 窗口高度
+int choice = 0;
 
 // 建構函數：初始化遊戲窗口和元件
 Game::Game() :
@@ -15,13 +17,15 @@ Game::Game() :
     scoreboard(),
     window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game"),
     isPaused(false),
-    gameOver(false) 
+    gameOver(false)
     {
     tileTexture.loadFromFile("assets/textures/white.png");
     tileSprite.setTexture(tileTexture);
-    
-    fruitTexture.loadFromFile("assets/textures/toast.png");
-    fruitSprite.setTexture(fruitTexture);
+
+    fruitTexture_1.loadFromFile("assets/textures/toast.png");
+    fruitTexture_2.loadFromFile("assets/textures/watermelon.png");
+    fruitSprite_1.setTexture(fruitTexture_1);
+	fruitSprite_2.setTexture(fruitTexture_2);
 
     snakeBodyTexture.loadFromFile("assets/textures/snakebody.png");
     snakeBodySprite.setTexture(snakeBodyTexture);
@@ -132,9 +136,16 @@ void Game::update() {
 
     // 如果蛇吃到水果，增加長度並重新生成水果
     if (snake.getHeadPosition() == sf::Vector2i(fruit.getX(), fruit.getY())) {
+		std::srand(static_cast<unsigned>(std::time(0)));
         snake.grow();
         fruit.respawn();
+		if(choice==0){
         scoreboard.increaseScore(10);
+		}
+		else{
+		scoreboard.increaseScore(5);
+		}
+		choice = rand()%2;
     }
 }
 
@@ -178,8 +189,14 @@ void Game::render() {
     }
 
     // 繪製水果
-    fruitSprite.setPosition(fruit.getX() * TILE_SIZE, fruit.getY() * TILE_SIZE);
-    window.draw(fruitSprite);
+	if(choice==1){
+    fruitSprite_1.setPosition(fruit.getX() * TILE_SIZE, fruit.getY() * TILE_SIZE);
+    window.draw(fruitSprite_1);
+	}
+	else{
+	fruitSprite_2.setPosition(fruit.getX() * TILE_SIZE, fruit.getY() * TILE_SIZE);
+    window.draw(fruitSprite_2);
+	}
 
      // 如果遊戲暫停，顯示paused
     if (isPaused) {
