@@ -16,6 +16,9 @@ void Snake::changeDirection(Direction dir) {
     }
 }
 
+Direction Snake::getDirection() const{
+    return this->direction;
+}
 // 移動蛇
 void Snake::move() {
     direction = newDirection;  // 在移動之前更新方向

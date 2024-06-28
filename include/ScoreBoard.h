@@ -1,5 +1,5 @@
-#ifdef SCOREBOARD_H
-#endif SCOREBOARD_H
+#ifndef SCOREBOARD_H
+#define SCOREBOARD_H
 
 #include <vector>
 
@@ -18,3 +18,5 @@ public:
 private:
     int score; //分數
 };
+
+#endif
