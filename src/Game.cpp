@@ -52,6 +52,25 @@ Game::Game() :
          std::cerr << "Error: Failed to load font5.ttf" << std::endl;
          return;
     }
+
+	if (!moveSoundBuffer.loadFromFile("assets/audio/change_direction.wav")) {
+        std::cerr << "Error: Failed to load change_direction.wav" << std::endl;
+    }
+    moveSound.setBuffer(moveSoundBuffer);
+
+	if (!eatSoundBuffer.loadFromFile("assets/audio/eat_apple.wav")) {
+        std::cerr << "Error: Failed to load eat_apple.wav" << std::endl;
+        return;
+    }
+    eatSound.setBuffer(eatSoundBuffer);
+
+	if (!backgroundmusic.openFromFile("assets/audio/music.wav")) {
+        std::cerr << "Error: Failed to load music.wav" << std::endl;
+        return;
+    }
+	backgroundmusic.setVolume(20);
+    backgroundmusic.setLoop(true); 
+    backgroundmusic.play();
 }
 
 
@@ -90,7 +109,12 @@ void Game::handleInput() {
 
             // 檢查是否按下 P
             if (event.key.code == sf::Keyboard::P) {
-                isPaused = !isPaused; // 切換暫停狀態
+				isPaused = !isPaused; // 切換暫停狀態
+				if (isPaused) {
+                    backgroundmusic.pause(); // 暂停背景音乐
+                } else {
+                    backgroundmusic.play(); // 恢复背景音乐
+                }
             }
             // 檢查是否按下 ESC
             if (event.key.code == sf::Keyboard::Escape) {
@@ -99,15 +123,28 @@ void Game::handleInput() {
             // 檢查是否按下 R
             if (event.key.code == sf::Keyboard::R) {
                 reset();
+				backgroundmusic.play();
             }
         }
     }
     // 更改蛇的方向
     if (!isPaused) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) snake.changeDirection(Left);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) snake.changeDirection(Right);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) snake.changeDirection(Up);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) snake.changeDirection(Down);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			moveSound.play();
+			snake.changeDirection(Left);
+		}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+			moveSound.play();
+			snake.changeDirection(Right);
+		}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+			moveSound.play();
+			snake.changeDirection(Up);
+		} 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+			moveSound.play();
+			snake.changeDirection(Down);
+		}
     }
 }
 
@@ -127,12 +164,14 @@ void Game::update() {
 
     if(snake.isOutOfBounds()) {
         gameOver = true;
+		backgroundmusic.stop();
         return;
     }
 
     // 如果蛇吃到水果，增加長度並重新生成水果
     if (snake.getHeadPosition() == sf::Vector2i(fruit.getX(), fruit.getY())) {
-        snake.grow();
+    	eatSound.play();
+		snake.grow();
         fruit.respawn();
         scoreboard.increaseScore(10);
     }
@@ -192,7 +231,7 @@ void Game::render() {
         pausedText.setPosition(WINDOW_WIDTH - pausedText.getGlobalBounds().width - 70,
                                WINDOW_HEIGHT/2  - pausedText.getGlobalBounds().height -50);
         window.draw(pausedText);
-    }
+	    }
 
     //繪製背景分數
     scoreText.setFont(font5);
@@ -208,6 +247,7 @@ void Game::render() {
         gameOverTextSprite.setPosition(WINDOW_WIDTH/2 - gameOverTextSprite.getGlobalBounds().width/2 - 90,
                                       WINDOW_HEIGHT/2 - gameOverTextSprite.getGlobalBounds().height/2 - 30);
         window.draw(gameOverTextSprite);
+		backgroundmusic.stop();
     }
 
     // 顯示已繪製的畫面
