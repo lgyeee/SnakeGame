@@ -13,7 +13,7 @@ Game::Game() :
     snake(),
     fruit(),
     scoreboard(),
-    window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game"),
+    window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game", sf::Style::Titlebar | sf::Style::Close),
     isPaused(false),
     gameOver(false) 
     {
@@ -160,7 +160,25 @@ void Game::render() {
     }
     // 繪製蛇頭
     sf::Vector2i headPos = snake.getHeadPosition();
-    snakeheadSprite.setPosition(headPos.x * TILE_SIZE, headPos.y * TILE_SIZE);
+    snakeheadSprite.setPosition(headPos.x * TILE_SIZE + (TILE_SIZE/2), headPos.y * TILE_SIZE + (TILE_SIZE/2));
+    float snakeheadRotation;
+    switch(snake.getDirection()){
+        case Up:
+            snakeheadRotation = 0;
+            break;
+        case Right:
+            snakeheadRotation = 90;
+            break;
+        case Down:
+            snakeheadRotation = 180;
+            break;
+        case Left:
+            snakeheadRotation = 270;
+            break;
+    }
+
+    snakeheadSprite.setOrigin(TILE_SIZE/2, TILE_SIZE/2);
+    snakeheadSprite.setRotation(snakeheadRotation);
     window.draw(snakeheadSprite);
 
     // 繪製蛇身
