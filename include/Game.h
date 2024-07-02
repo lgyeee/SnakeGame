@@ -2,7 +2,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <SFML/Audio/Music.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>//include 音檔library
 #include "Snake.h"
 #include "Fruit.h"
 #include "ScoreBoard.h"
@@ -33,7 +35,10 @@ private:
     sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; // 紋理
     sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    // 物件精靈
     sf::Font font, font2, font3, font4, font5;
-    sf::Text scoreText;
+	sf::SoundBuffer moveSoundBuffer, eatSoundBuffer;//音頻數據 .wav .ogg
+    sf::Sound moveSound, eatSound;//短音頻片段
+	sf::Music backgroundmusic;
+	sf::Text scoreText;
     sf::RectangleShape scoreBackground;
     bool isPaused; // 暫停狀態
     void reset(); // 重置遊戲
