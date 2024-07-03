@@ -17,7 +17,7 @@ Game::Game() :
     isPaused(false),
     gameOver(false),
     gamestate(0),
-    startScreen(800,600)
+    startScreen(WINDOW_WIDTH, WINDOW_HEIGHT)
 {
     tileTexture.loadFromFile("assets/textures/white.png");
     fruitTexture.loadFromFile("assets/textures/toast.png");
@@ -63,21 +63,10 @@ void Game::run() {
 
     // 主遊戲循環：當窗口未關閉時繼續執行
     while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
 
-            if (gamestate == 0) {
-                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-                    gamestate = 1;
-                }
-            }
-        }
+        handleInput();
 
-        window.clear();
-
-        if (gamestate == 0) {
+        if (gamestate == false) {
             //printf("start\n");
             startScreen.draw(window);
             window.display();
@@ -88,7 +77,7 @@ void Game::run() {
             clock.restart();
             timer += elapsedTime;
 
-            handleInput();
+            
 
             if (!isPaused && timer > delay && !gameOver) {
                 timer = 0.0f;
@@ -110,6 +99,11 @@ void Game::handleInput() {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
+        if (gamestate == false) {
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+                    gamestate = true;
+                }
+            }
         if (event.type == sf::Event::KeyPressed) {
             // debug: 印出所有KeyPressed
             std::cout << "Key pressed: " << event.key.code << std::endl;

@@ -8,39 +8,39 @@
 #include "ScoreBoard.h"
 #include "StartScreen.h"
 
-// ªí¥Ü¾ã­Ó³g¦Y³D¹CÀ¸ªºÃş
+// è¡¨ç¤ºæ•´å€‹è²ªåƒè›‡éŠæˆ²çš„é¡
 class Game {
 public:
-    // «Øºc¨ç¼Æ¡Gªì©l¤Æ¹CÀ¸µ¡¤f©M¤¸¥ó
+    // å»ºæ§‹å‡½æ•¸ï¼šåˆå§‹åŒ–éŠæˆ²çª—å£å’Œå…ƒä»¶
     Game();
 
-    // ¹B¦æ¹CÀ¸´`Àô
+    // é‹è¡ŒéŠæˆ²å¾ªç’°
     void run();
 
 private:
-    // ³B²z¥Î¤á¿é¤J¨Æ¥ó
+    // è™•ç†ç”¨æˆ¶è¼¸å…¥äº‹ä»¶
     void handleInput();
 
-    // §ó·s¹CÀ¸ª¬ºA
+    // æ›´æ–°éŠæˆ²ç‹€æ…‹
     void update();
 
-    // ´è¬V¹CÀ¸µe­±
+    // æ¸²æŸ“éŠæˆ²ç•«é¢
     void render();
 
-    sf::RenderWindow window; // ´è¬Vµ¡¤f
-    Snake snake;             // ³g¦Y³D
-    Fruit fruit;             // ¤ôªG
-    ScoreBoard scoreboard;   //­p¤ÀªO
-    StartScreen startScreen; //°_©lµe­±
-    sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; // ¯¾²z
-    sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    // ºëÆF
+    sf::RenderWindow window; // æ¸²æŸ“çª—å£
+    Snake snake;             // è²ªåƒè›‡
+    Fruit fruit;             // æ°´æœ
+    ScoreBoard scoreboard;   // è¨ˆåˆ†æ¿
+    StartScreen startScreen; // èµ·å§‹ç•«é¢
+    sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; // ï¿½ï¿½ï¿½z
+    sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    // ï¿½ï¿½ï¿½F
     sf::Font font, font2, font3, font4, font5;
     sf::Text scoreText;
     sf::RectangleShape scoreBackground;
-    bool isPaused; // ¼È°±ª¬ºA
-    void reset(); // ­«¸m¹CÀ¸
-    bool gameOver; // ¹CÀ¸µ²§ôª¬ºA
-    int gamestate;
+    bool isPaused; // æš«åœç‹€æ…‹
+    void reset(); // é‡ç½®éŠæˆ²
+    bool gameOver; // éŠæˆ²çµæŸç‹€æ…‹
+    bool gamestate; // éŠæˆ²ç‹€æ…‹
 };
 
 #endif // GAME_H
