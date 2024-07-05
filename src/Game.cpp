@@ -205,9 +205,18 @@ void Game::render() {
 
     // 如果遊戲結束，顯示Game Over
     if (gameOver) {
-        gameOverTextSprite.setPosition(WINDOW_WIDTH/2 - gameOverTextSprite.getGlobalBounds().width/2 - 90,
+        /*gameOverTextSprite.setPosition(WINDOW_WIDTH/2 - gameOverTextSprite.getGlobalBounds().width/2 - 90,
                                       WINDOW_HEIGHT/2 - gameOverTextSprite.getGlobalBounds().height/2 - 30);
-        window.draw(gameOverTextSprite);
+        window.draw(gameOverTextSprite);*/
+        sf::Text gameOverText;
+        gameOverText.setFont(font3);
+        gameOverText.setCharacterSize(90);
+        gameOverText.setStyle(sf::Text::Bold);
+        gameOverText.setFillColor(sf::Color(0, 74, 173, 255));
+        gameOverText.setString("Game Over");
+        gameOverText.setPosition(WINDOW_WIDTH/2 - gameOverTextSprite.getGlobalBounds().width/2 - 60,
+                                      WINDOW_HEIGHT/2 - gameOverTextSprite.getGlobalBounds().height/2 + 30);
+        window.draw(gameOverText);                              
     }
 
     // 顯示已繪製的畫面
