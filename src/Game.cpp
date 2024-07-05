@@ -55,7 +55,7 @@ Game::Game() :
     if (!gameOverSoundBuffer.loadFromFile("assets/sounds/game_over_sound2.flac")) {
         std::cerr << "Error: Failed to load game_over_sound1.wav" << std::endl;
     }
-    gameOverSound.setBuffer(gameOverSoundBuffer);
+    gameOverSound.setBuffer(gameOverSoundBuffer); 
 }
 
 
