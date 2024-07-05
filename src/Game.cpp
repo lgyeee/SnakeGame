@@ -52,6 +52,10 @@ Game::Game() :
          std::cerr << "Error: Failed to load font5.ttf" << std::endl;
          return;
     }
+    if (!gameOverSoundBuffer.loadFromFile("assets/sounds/game_over_sound2.flac")) {
+        std::cerr << "Error: Failed to load game_over_sound1.wav" << std::endl;
+    }
+    gameOverSound.setBuffer(gameOverSoundBuffer);
 }
 
 
@@ -127,6 +131,7 @@ void Game::update() {
 
     if(snake.isOutOfBounds()) {
         gameOver = true;
+        gameOverSound.play();
         return;
     }
 

@@ -3,6 +3,7 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Snake.h"
 #include "Fruit.h"
 #include "ScoreBoard.h"
@@ -33,6 +34,8 @@ private:
     sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; // 紋理
     sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    // 物件精靈
     sf::Font font, font2, font3, font4, font5;
+    sf::SoundBuffer gameOverSoundBuffer;//音效 .wav .flac
+    sf::Sound gameOverSound;//音效物件
     sf::Text scoreText;
     sf::RectangleShape scoreBackground;
     bool isPaused; // 暫停狀態
