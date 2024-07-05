@@ -3,7 +3,7 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>//音效library
 #include "Snake.h"
 #include "Fruit.h"
 #include "ScoreBoard.h"
