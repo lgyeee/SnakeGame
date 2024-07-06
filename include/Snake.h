@@ -22,6 +22,9 @@ public:
     // 改變蛇的移動方向
     void changeDirection(Direction dir);
 
+    // Direction getter
+    Direction getDirection() const;
+
     // 移動蛇
     void move();
 
