@@ -70,6 +70,7 @@ A classic Snake game built using SFML (Simple and Fast Multimedia Library). This
   - `Right Arrow`: Move the snake right.
 - **P Key**: Pause and resume the game.
 - **Escape Key**: Exit the game.
+- **R Key**: Restart the game.
 
 ### Game Interactions
 
@@ -79,6 +80,7 @@ A classic Snake game built using SFML (Simple and Fast Multimedia Library). This
     - Prevent the snake from hitting boundaries to avoid game over.
 - **Pause/Resume**: You can pause the game at any time by pressing the \`P\` key and resume by pressing it again.
 - **Exit Game**: Press the \`Escape\` key to exit the game at any time.
+- **Restart Game**: Press the \`R\` key to restart the game at any time.
 
 ## Project Structure
 
