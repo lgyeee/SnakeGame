@@ -2,8 +2,8 @@
 
 # 編譯器和選項
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -g -I/opt/homebrew/Cellar/sfml/2.6.1/include
-LDFLAGS = -L/opt/homebrew/Cellar/sfml/2.6.1/lib
+CXXFLAGS = -std=c++11 -Wall -Wextra -g -I/usr/local/Cellar/sfml/2.6.1/include
+LDFLAGS = -L/usr/local/Cellar/sfml/2.6.1/lib
 
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 

@@ -30,7 +30,8 @@ private:
     Snake snake;             // 貪吃蛇
     Fruit fruit;             // 水果
     ScoreBoard scoreboard;   //計分板
-    sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; // 紋理
+    sf::Texture tileTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; // 紋理
+    sf::Texture snakehead_texture_up, snakehead_texture_down, snakehead_texture_left, snakehead_texture_right;
     sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    // 物件精靈
     sf::Font font, font2, font3, font4, font5;
     sf::Text scoreText;
