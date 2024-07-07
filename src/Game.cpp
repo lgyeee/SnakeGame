@@ -26,8 +26,11 @@ Game::Game() :
     snakeBodyTexture.loadFromFile("assets/textures/snakebody.png");
     snakeBodySprite.setTexture(snakeBodyTexture);
 
-    snakeheadTexture.loadFromFile("assets/textures/snakehead.png");
-    snakeheadSprite.setTexture(snakeheadTexture);
+    snakehead_texture_up.loadFromFile("assets/textures/snakehead_up.png");
+    snakehead_texture_down.loadFromFile("assets/textures/snakehead_down.png");
+    snakehead_texture_left.loadFromFile("assets/textures/snakehead_left.png");
+    snakehead_texture_right.loadFromFile("assets/textures/snakehead_right.png");
+    snakeheadSprite.setTexture(snakehead_texture_down);
 
     gameOverTextTexture.loadFromFile("assets/textures/gameover.png");
     gameOverTextSprite.setTexture(gameOverTextTexture);
@@ -160,25 +163,23 @@ void Game::render() {
     }
     // 繪製蛇頭
     sf::Vector2i headPos = snake.getHeadPosition();
-    snakeheadSprite.setPosition(headPos.x * TILE_SIZE + (TILE_SIZE/2), headPos.y * TILE_SIZE + (TILE_SIZE/2));
-    float snakeheadRotation;
+    snakeheadSprite.setPosition(headPos.x * TILE_SIZE, headPos.y * TILE_SIZE );
+    
     switch(snake.getDirection()){
         case Up:
-            snakeheadRotation = 0;
+            snakeheadSprite.setTexture(snakehead_texture_up);
             break;
         case Right:
-            snakeheadRotation = 90;
+            snakeheadSprite.setTexture(snakehead_texture_right);
             break;
         case Down:
-            snakeheadRotation = 180;
+            snakeheadSprite.setTexture(snakehead_texture_down);
             break;
         case Left:
-            snakeheadRotation = 270;
+            snakeheadSprite.setTexture(snakehead_texture_left);
             break;
     }
 
-    snakeheadSprite.setOrigin(TILE_SIZE/2, TILE_SIZE/2);
-    snakeheadSprite.setRotation(snakeheadRotation);
     window.draw(snakeheadSprite);
 
     // 繪製蛇身
