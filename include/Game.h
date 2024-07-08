@@ -32,8 +32,8 @@ private:
     Fruit fruit;             // 水果
     ScoreBoard scoreboard;   // 計分板
     StartScreen startScreen; // 起始畫面
-    sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; // ���z
-    sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    // ���F
+    sf::Texture tileTexture, snakeheadTexture, snakeBodyTexture, fruitTexture, gameOverTextTexture; 
+    sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, gameOverTextSprite;    
     sf::Font font, font2, font3, font4, font5;
     sf::Text scoreText;
     bool isPaused; // 暫停狀態
