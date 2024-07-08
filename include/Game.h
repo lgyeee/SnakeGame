@@ -39,7 +39,6 @@ private:
     sf::Sound moveSound, eatSound;//短音頻片段
 	sf::Music backgroundmusic;
 	sf::Text scoreText;
-    sf::RectangleShape scoreBackground;
     bool isPaused; // 暫停狀態
     void reset(); // 重置遊戲
     bool gameOver; // 遊戲結束狀態
