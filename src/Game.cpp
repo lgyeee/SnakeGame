@@ -15,7 +15,9 @@ Game::Game() :
     scoreboard(),
     window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game"),
     isPaused(false),
-    gameOver(false) 
+    gameOver(false),
+    gamestate(0),
+    startScreen(WINDOW_WIDTH, WINDOW_HEIGHT)
     {
     tileTexture.loadFromFile("assets/textures/white.png");
     tileSprite.setTexture(tileTexture);
@@ -62,19 +64,26 @@ void Game::run() {
 
     // 主遊戲循環：當窗口未關閉時繼續執行
     while (window.isOpen()) {
+        handleInput();
+        if (gamestate == false) {
+            //printf("start\n");
+            startScreen.draw(window);
+            window.display();
+        }
+        else{
         // 計算自上次重置以來的經過時間（秒）
         float elapsedTime = clock.getElapsedTime().asSeconds();
         clock.restart();
         timer += elapsedTime;
 
-        handleInput();
+        
 
         if (!isPaused && timer > delay && !gameOver) {
             timer = 0.0f;
             update();
         }
 
-        render();
+        render(); }
     }
 }
 // 處理输入事件
@@ -84,6 +93,11 @@ void Game::handleInput() {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
+        if (gamestate == false) {
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+                    gamestate = true;
+                }
+            }
         if (event.type == sf::Event::KeyPressed) {
             // debug: 印出所有KeyPressed
             std::cout << "Key pressed: " << event.key.code << std::endl;
