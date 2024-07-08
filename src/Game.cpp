@@ -146,6 +146,11 @@ void Game::update() {
         snake.shrink();
         mine.respawn();
         scoreboard.increaseScore(-10);
+        // 如果蛇只有一節，遊戲結束
+        if (snake.getBody().size() == 1) {
+            gameOver = true;
+            return;
+        }
     }
 }
 
