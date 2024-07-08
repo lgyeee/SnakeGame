@@ -1,4 +1,4 @@
-// Game.cpp
+﻿// Game.cpp
 #include "../include/Game.h"
 #include <iostream>
 
@@ -15,12 +15,13 @@ Game::Game() :
     scoreboard(),
     window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Snake Game"),
     isPaused(false),
-    gameOver(false) 
-    {
+    gameOver(false),
+    gamestate(0),
+    startScreen(WINDOW_WIDTH, WINDOW_HEIGHT)
+{
     tileTexture.loadFromFile("assets/textures/white.png");
-    tileSprite.setTexture(tileTexture);
-    
     fruitTexture.loadFromFile("assets/textures/toast.png");
+    tileSprite.setTexture(tileTexture);
     fruitSprite.setTexture(fruitTexture);
 
     snakeBodyTexture.loadFromFile("assets/textures/snakebody.png");
@@ -32,25 +33,25 @@ Game::Game() :
     gameOverTextTexture.loadFromFile("assets/textures/gameover.png");
     gameOverTextSprite.setTexture(gameOverTextTexture);
 
-    if (!font.loadFromFile("assets/fonts/font.ttf")) {
+    if (!font.loadFromFile("assets/fonts/font.tff")) {
         std::cerr << "Error: Failed to load font.ttf" << std::endl;
         return;
     }
-    if (!font2.loadFromFile("assets/fonts/font2.ttf")) {
-         std::cerr << "Error: Failed to load font2.ttf" << std::endl;
-         return;
+    if (!font2.loadFromFile("assets/fonts/font.tff")) {
+        std::cerr << "Error: Failed to load font2.ttf" << std::endl;
+        return;
     }
     if (!font3.loadFromFile("assets/fonts/font3.ttf")) {
-         std::cerr << "Error: Failed to load font3.ttf" << std::endl;
-         return;
+        std::cerr << "Error: Failed to load font3.ttf" << std::endl;
+        return;
     }
     if (!font4.loadFromFile("assets/fonts/font4.ttf")) {
-         std::cerr << "Error: Failed to load font4.ttf" << std::endl;
-         return;
+        std::cerr << "Error: Failed to load font4.ttf" << std::endl;
+        return;
     }
     if (!font5.loadFromFile("assets/fonts/font5.ttf")) {
-         std::cerr << "Error: Failed to load font5.ttf" << std::endl;
-         return;
+        std::cerr << "Error: Failed to load font5.ttf" << std::endl;
+        return;
     }
 }
 
@@ -62,21 +63,35 @@ void Game::run() {
 
     // 主遊戲循環：當窗口未關閉時繼續執行
     while (window.isOpen()) {
-        // 計算自上次重置以來的經過時間（秒）
-        float elapsedTime = clock.getElapsedTime().asSeconds();
-        clock.restart();
-        timer += elapsedTime;
 
         handleInput();
 
-        if (!isPaused && timer > delay && !gameOver) {
-            timer = 0.0f;
-            update();
+        if (gamestate == false) {
+            //printf("start\n");
+            startScreen.draw(window);
+            window.display();
         }
+        else {
+            // 計算自上次重置以來的經過時間（秒）
+            float elapsedTime = clock.getElapsedTime().asSeconds();
+            clock.restart();
+            timer += elapsedTime;
 
-        render();
+            
+
+            if (!isPaused && timer > delay && !gameOver) {
+                timer = 0.0f;
+                update();
+            }
+
+            render();
+        }
+        
     }
 }
+
+
+
 // 處理输入事件
 void Game::handleInput() {
     sf::Event event;
@@ -84,6 +99,11 @@ void Game::handleInput() {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
+        if (gamestate == false) {
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+                    gamestate = true;
+                }
+            }
         if (event.type == sf::Event::KeyPressed) {
             // debug: 印出所有KeyPressed
             std::cout << "Key pressed: " << event.key.code << std::endl;
@@ -102,6 +122,7 @@ void Game::handleInput() {
             }
         }
     }
+
     // 更改蛇的方向
     if (!isPaused) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) snake.changeDirection(Left);
@@ -117,7 +138,7 @@ void Game::update() {
 
     snake.move();
 
-    if(snake.isSelfCollision()){
+    if (snake.isSelfCollision()) {
         snake.modifiedSnake();
         int newSize = snake.getBody().size();
         scoreboard.resetScore();
@@ -125,7 +146,7 @@ void Game::update() {
         scoreboard.increaseScore(addPoints);
     }
 
-    if(snake.isOutOfBounds()) {
+    if (snake.isOutOfBounds()) {
         gameOver = true;
         return;
     }
@@ -150,7 +171,8 @@ void Game::render() {
             // 交替繪製模擬格線
             if ((i + j) % 2 == 0) {
                 rect.setFillColor(sf::Color(117, 191, 255)); // 淺藍色
-            } else {
+            }
+            else {
                 rect.setFillColor(sf::Color(117, 185, 255)); // 藍色
             }
 
@@ -158,7 +180,8 @@ void Game::render() {
             window.draw(rect);
         }
     }
-    // 繪製蛇頭
+
+        // 繪製蛇頭
     sf::Vector2i headPos = snake.getHeadPosition();
     snakeheadSprite.setPosition(headPos.x * TILE_SIZE, headPos.y * TILE_SIZE);
     window.draw(snakeheadSprite);
@@ -170,10 +193,10 @@ void Game::render() {
         window.draw(snakeBodySprite);
     }
 
-    for (int i = GRID_WIDTH; i < WINDOW_WIDTH ; i = i + TILE_SIZE) {
-        for (int j = 0; j < WINDOW_HEIGHT;j = j + TILE_SIZE) {
-        tileSprite.setPosition(i * TILE_SIZE, j * TILE_SIZE);
-        window.draw(tileSprite);
+    for (int i = GRID_WIDTH; i < WINDOW_WIDTH; i = i + TILE_SIZE) {
+        for (int j = 0; j < WINDOW_HEIGHT; j = j + TILE_SIZE) {
+            tileSprite.setPosition(i * TILE_SIZE, j * TILE_SIZE);
+            window.draw(tileSprite);
         }
     }
 
@@ -181,7 +204,7 @@ void Game::render() {
     fruitSprite.setPosition(fruit.getX() * TILE_SIZE, fruit.getY() * TILE_SIZE);
     window.draw(fruitSprite);
 
-     // 如果遊戲暫停，顯示paused
+    // 如果遊戲暫停，顯示paused
     if (isPaused) {
         sf::Text pausedText;
         pausedText.setFont(font3);
@@ -190,7 +213,7 @@ void Game::render() {
         pausedText.setStyle(sf::Text::Bold);
         pausedText.setString("Paused");
         pausedText.setPosition(WINDOW_WIDTH - pausedText.getGlobalBounds().width - 70,
-                               WINDOW_HEIGHT/2  - pausedText.getGlobalBounds().height -50);
+            WINDOW_HEIGHT / 2 - pausedText.getGlobalBounds().height - 50);
         window.draw(pausedText);
     }
 
@@ -205,8 +228,8 @@ void Game::render() {
 
     // 如果遊戲結束，顯示Game Over
     if (gameOver) {
-        gameOverTextSprite.setPosition(WINDOW_WIDTH/2 - gameOverTextSprite.getGlobalBounds().width/2 - 90,
-                                      WINDOW_HEIGHT/2 - gameOverTextSprite.getGlobalBounds().height/2 - 30);
+        gameOverTextSprite.setPosition(WINDOW_WIDTH / 2 - gameOverTextSprite.getGlobalBounds().width / 2 - 90,
+            WINDOW_HEIGHT / 2 - gameOverTextSprite.getGlobalBounds().height / 2 - 30);
         window.draw(gameOverTextSprite);
     }
 
