@@ -37,7 +37,6 @@ private:
     sf::SoundBuffer gameOverSoundBuffer;//音效 .wav .flac
     sf::Sound gameOverSound;//音效物件
     sf::Text scoreText;
-    sf::RectangleShape scoreBackground;
     bool isPaused; // 暫停狀態
     void reset(); // 重置遊戲
     bool gameOver; // 遊戲結束狀態
