@@ -36,7 +36,6 @@ private:
     sf::Sprite tileSprite, snakeheadSprite, snakeBodySprite, fruitSprite, mineSprite, gameOverTextSprite;    // 物件精靈
     sf::Font font, font2, font3, font4, font5;
     sf::Text scoreText;
-    sf::RectangleShape scoreBackground;
     bool isPaused; // 暫停狀態
     void reset(); // 重置遊戲
     bool gameOver; // 遊戲結束狀態
